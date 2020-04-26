@@ -8,9 +8,8 @@ type TileProps = {
     draggable?: boolean
     dragStart?: DragEventHandler
 }
-
-export const Tile = ({ letter, highlight, draggable, dragStart, id}: TileProps) =>
-    <div id = {letter+id} className={(!highlight ? "tile_wrapper" : "tile_wrapper")} draggable={draggable} onDragStart={dragStart}>
+export const Tile: FunctionComponent<TileProps> = ({ letter, highlight, draggable, dragStart, id}) =>
+    <div id = {letter+id} className={(!highlight ? "tile_wrapper" : "tile_wrapper highlight")} draggable={draggable} onDragStart={dragStart}>
             <div className="noselect tile_label">
                 {letter}
             </div>

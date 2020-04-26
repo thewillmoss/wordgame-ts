@@ -1,4 +1,4 @@
-import React, {Component, DragEventHandler} from 'react'; // importing FunctionComponent
+import React, {Component, DragEventHandler, ReactNode} from 'react'; // importing FunctionComponent
 import './Square.css';
 import {Tile} from "./Tile";
 type Char = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K'
@@ -7,11 +7,10 @@ type Char = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K'
 
 type SquareProps = {
     id: string
-    letter: string
     wordMultiplier: number
     letterMultiplier: number
-    highlight: boolean
     onDrop : DragEventHandler
+    tile : ReactNode
 }
 
 export class Square extends Component<SquareProps, {}> {
@@ -34,7 +33,7 @@ export class Square extends Component<SquareProps, {}> {
         <div className={"square_wrapper "+this.squareType(this.props.letterMultiplier, this.props.wordMultiplier)}
                 onDrop = {this.props.onDrop} onDragOver={(event) => event.preventDefault()}
                 id = {this.props.id}>
-            {this.props.letter!=' ' ? <Tile letter = {this.props.letter} highlight={false}/> : ""}
+            {this.props.tile}
         </div>
         );
     }

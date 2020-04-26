@@ -18,33 +18,19 @@ interface Location {
     row : number
     col : number
 }
-interface CurrentMove {
-    tile : Char
-    loc : Location
+type WordGameUIState = {
+    liveTiles : Map<Number, Char>
 }
-type ScrabbleState = {
+type WordGameUIProps = {
     board: Char[][]
-    board_tile: ReactNode[][]
-    pool: Char[]
-    players: Player[]
-    current_player: number
-    current_tile: String
-}
-type ScrabbleProps = {
-
+    player: Player
 }
 
-export class Scrabble extends Component<ScrabbleProps, ScrabbleState> {
-    constructor(props: Scrabble) {
+export class WordGameUI extends Component<WordGameUIProps, WordGameUIState> {
+    constructor(props: WordGameUIProps) {
         super(props)
         this.state = {
-            board: charBoard,
-            board_tile: this.createBoardTiles(charBoard),
-            pool: ["A","B","C","D","E","F","G"],
-            current_player: 0,
-            players: [{name: "player one", frame: ["A","B","C","D","E","F","G"], score: 0},
-                        {name: "player two", frame: ["H","I","J","K","L","M","N"], score: 0}],
-            current_tile: "",
+            liveTiles : new Map()
         };
     }
     getNumberFromID(ElementID: string): number{
@@ -73,11 +59,6 @@ export class Scrabble extends Component<ScrabbleProps, ScrabbleState> {
         return false;
     }
 
-    dragEnd = (event: React.DragEvent) => {
-        this.setState({
-            current_tile : ""
-        })
-    }
     dragStart = (event: React.DragEvent) => {
         if((event.dataTransfer) && (event.target) && (event.target instanceof Element)){
             event.dataTransfer.setData("text", event.target.id)
